@@ -22,7 +22,7 @@ char* get_buff_2()
   con_idx_2 = con_idx_2 + 1;
   count_2--;
   // Signal to the producer that the buffer has space
-  pthread_cond_signal(&empty_2);
+  //pthread_cond_signal(&empty_2);
   // Unlock the mutex
   pthread_mutex_unlock(&mutex_2);
   // Return the item
@@ -53,18 +53,18 @@ void put_buff_3(char* item)
 void swapPlus(void)
 {
   // get the length of line in buffer
-  int tempLen = strlen(tempLine);
+  int plusLen = strlen(plusLine);
   // iterate over every character in line
-  for (int k = 0; k < tempLen; k++)
+  for (int k = 0; k < plusLen; k++)
   {
     // find '++'
-    if (tempLine[k] == '+' && tempLine[k+1] == '+')
+    if (plusLine[k] == '+' && plusLine[k+1] == '+')
     {
       // replace first '+' with '^'
-      tempLine[k] = '^';
+      plusLine[k] = '^';
       // Citation: https://stackoverflow.com/questions/5457608/how-to-remove-the-character-at-a-given-index-from-a-string-in-c
       // skips over second '+'
-      memmove(&tempLine[k+1], &tempLine[k + 2], strlen(tempLine) - (k+1));      
+      memmove(&plusLine[k+1], &plusLine[k + 2], strlen(plusLine) - (k+1));      
     }
   }
   
@@ -80,17 +80,17 @@ void *replacePlus(void *args)
 {
   // Get item from buffer_2
   // Continue consuming until the END_MARKER is seen
-  while (strcmp(tempLine, END_MARKER) != 0)
+  while (strcmp(plusLine, END_MARKER) != 0)
   {
-    strcpy(tempLine, get_buff_2());
+    strcpy(plusLine, get_buff_2());
     // don't replace END_MARKER
-    if (strcmp(tempLine, END_MARKER) != 0)
+    if (strcmp(plusLine, END_MARKER) != 0)
     {
       // Process item: place '\n' with ' '
       swapPlus();
     }
     // Place Processed item in buffer_3
-    put_buff_3(tempLine);
+    put_buff_3(plusLine);
   }
   
   /*

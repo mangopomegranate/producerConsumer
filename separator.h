@@ -22,7 +22,7 @@ char* get_buff_1()
   con_idx_1 = con_idx_1 + 1;
   count_1--;
   // Signal to the producer that the buffer has space
-  pthread_cond_signal(&empty_1);
+  //pthread_cond_signal(&empty_1);
   // Unlock the mutex
   pthread_mutex_unlock(&mutex_1);
   // Return the item
@@ -53,24 +53,24 @@ void put_buff_2(char* item)
 void swapWithSpace(void)
 {
   // get the length of line in buffer
-  int tempLen = strlen(tempLine);
+  int sepLen = strlen(sepLine);
   // iterate over every character in line
-  for (int k = 0; k < tempLen; k++)
+  for (int k = 0; k < sepLen; k++)
   {
     // find end of line separator
-    if (tempLine[k] == '\n')
+    if (sepLine[k] == '\n')
     {
-      tempLine[k] = ' ';
+      sepLine[k] = ' ';
     }
   }
   
   /* 
-  FOR TESTS: checks for unreplaced \n in tempLine
+  FOR TESTS: checks for unreplaced \n in sepLine
   */
   /*
-  for (int m = 0; m < tempLen; m++)
+  for (int m = 0; m < sepLen; m++)
   {
-    if (tempLine[m] == '\n')
+    if (sepLine[m] == '\n')
     {
       printf("found\n");
     }
@@ -89,17 +89,17 @@ void *separateLine(void *args)
 {
   // Get item from buffer_1
   // Continue consuming until the END_MARKER is seen
-  while (strcmp(tempLine, END_MARKER) != 0)
+  while (strcmp(sepLine, END_MARKER) != 0)
   {
-    strcpy(tempLine, get_buff_1());
+    strcpy(sepLine, get_buff_1());
     // don't replace END_MARKER
-    if (strcmp(tempLine, END_MARKER) != 0)
+    if (strcmp(sepLine, END_MARKER) != 0)
     {
       // Process item: place '\n' with ' '
       swapWithSpace();
     }
     // Place Processed item in buffer_2
-    put_buff_2(tempLine);
+    put_buff_2(sepLine);
   }
   
   /*

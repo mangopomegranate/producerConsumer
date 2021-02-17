@@ -35,16 +35,16 @@ void *get_input(void *args)
   for (int i = 0; i < NUM_ITEMS; i++)
   {
     // place next line in temLine
-    fgets(tempLine, CHAR, stdin);
+    fgets(inputLine, CHAR, stdin);
     // check if line has STOP signals
-    if (strcmp(tempLine, END_MARKER) == 0)
+    if (strcmp(inputLine, END_MARKER) == 0)
     {
       put_buff_1(END_MARKER);
       break;
     } else 
     {
       // place line in buffer
-      put_buff_1(tempLine);
+      put_buff_1(inputLine);
     }
   }
   

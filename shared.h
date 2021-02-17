@@ -31,7 +31,11 @@ Example from Assignment Handout
 // ** Don't know how to use this yet, but need to store each character in line
 #define CHAR 1000
 // store temporary string
+char inputLine[CHAR];
+char sepLine[CHAR];
+char plusLine[CHAR];
 char tempLine[CHAR];
+char outLine[CHAR];
 
 /*****Buffer 1*****/
 // Buffer, shared resource
