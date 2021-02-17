@@ -8,14 +8,18 @@
 */
 #include "shared.h"
 #include "input.h"
+#include "separator.h"
 
 int main(){
   //srand(time(0));
-  pthread_t input_t, output_t;
+  pthread_t input_t, separator_t;
   // Create the threads
   pthread_create(&input_t, NULL, get_input, NULL);
+  pthread_create(&separator_t, NULL, separateLine, NULL);
   
+  // Wait for the threads to terminate
   pthread_join(input_t, NULL);
+  pthread_join(separator_t, NULL);
 
   return EXIT_SUCCESS;
 }

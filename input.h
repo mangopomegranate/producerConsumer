@@ -34,17 +34,24 @@ void *get_input(void *args)
   // i.e. input is assumed to end at line 50
   for (int i = 0; i < NUM_ITEMS; i++)
   {
+    // place next line in temLine
     fgets(tempLine, CHAR, stdin);
-    if (strcmp(tempLine, "STOP\n") == 0)
+    // check if line has STOP signals
+    if (strcmp(tempLine, END_MARKER) == 0)
     {
+      put_buff_1(END_MARKER);
       break;
     } else 
     {
+      // place line in buffer
       put_buff_1(tempLine);
     }
   }
   
-  /* FOR TESTING: Checks if input correctly placed in buffer
+  /*
+  *TEST:Checks if input correctly placed in buffer
+  */
+  /*
   printf("\nprod_id: %d\n", prod_idx_1);
   //printf("buffer = %s\n", buffer_1[0]);
   
