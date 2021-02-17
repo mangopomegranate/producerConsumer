@@ -54,14 +54,14 @@ pthread_cond_t empty_1 = PTHREAD_COND_INITIALIZER;
 
 /*****Buffer 2*****/
 // Buffer, shared resource
-// between separator and plusSign
+// between separator and plus sign thread
 char* buffer_2[SIZE];
 // Number of items in the buffer, shared resource
-// between input and separator
+// between separator and plus sign
 int count_2 = 0;
-// Index where input thread will put the next items
+// Index where separator thread will put the next items
 int prod_idx_2 = 0;
-// Index where seprator thread will pick up the next item
+// Index where plus sign thread will pick up the next item
 int con_idx_2 = 0;
 
 // Initialize the mutex
@@ -71,4 +71,22 @@ pthread_mutex_t mutex_2 = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t full_2 = PTHREAD_COND_INITIALIZER;
 pthread_cond_t empty_2 = PTHREAD_COND_INITIALIZER;
 
+/*****Buffer 3*****/
+// Buffer, shared resource
+// between plus sign thread and output thread
+char* buffer_3[SIZE];
+// Number of items in the buffer, shared resource
+// between plus sign and output
+int count_3 = 0;
+// Index where plus sign thread will put the next items
+int prod_idx_3 = 0;
+// Index where output thread will pick up the next item
+int con_idx_3 = 0;
+
+// Initialize the mutex
+pthread_mutex_t mutex_3 = PTHREAD_MUTEX_INITIALIZER;
+
+// Initialize the condition variables
+pthread_cond_t full_3 = PTHREAD_COND_INITIALIZER;
+pthread_cond_t empty_3 = PTHREAD_COND_INITIALIZER;
 #endif

@@ -9,17 +9,20 @@
 #include "shared.h"
 #include "input.h"
 #include "separator.h"
+#include "plus.h"
 
 int main(){
   //srand(time(0));
-  pthread_t input_t, separator_t;
+  pthread_t input_t, separator_t, plus_t;
   // Create the threads
   pthread_create(&input_t, NULL, get_input, NULL);
   pthread_create(&separator_t, NULL, separateLine, NULL);
+  pthread_create(&plus_t, NULL, replacePlus, NULL);
   
   // Wait for the threads to terminate
   pthread_join(input_t, NULL);
   pthread_join(separator_t, NULL);
+  pthread_join(plus_t, NULL);
 
   return EXIT_SUCCESS;
 }
